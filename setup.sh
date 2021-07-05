@@ -39,5 +39,21 @@ echo "
 
 		${GREEN}[${WHITE}-${GREENS}]${GREENS} Tool Created by ${RED}mosthated ${GREENS}(umegbewe nwebedu)${WHITE}
 "
+update() {
+if [[ `command -v apt-get` ]]; then
+echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo apt-get update..."
+	sudo apt-get update
+elif [[ `command -v yum` ]]; then
+echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo yum update..."
+	sudo yum update
+elif [[ `command -v pacman` ]]; then
+echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
+	sudo pacman -Syy
+fi
+}
+
+
+
+update
 
 
