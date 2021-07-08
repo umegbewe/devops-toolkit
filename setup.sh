@@ -27,7 +27,8 @@ reset_color() {
 	tput op     # reset color
     return
 }
-## Banner
+## banner 
+banner() {
 echo "
 		${GREENS} ____              ___              _____           _ _    _ _   
 		${ORANGE}|  _ \  _____   __/ _ \ _ __  ___  |_   _|__   ___ | | | _(_) |_               
@@ -39,21 +40,37 @@ echo "
 
 		${GREEN}[${WHITE}-${GREENS}]${GREENS} Tool Created by ${RED}mosthated ${GREENS}(umegbewe nwebedu)${WHITE}
 "
-update() {
-if [[ `command -v apt-get` ]]; then
-echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo apt-get update..."
-	sudo apt-get update
-elif [[ `command -v yum` ]]; then
-echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo yum update..."
-	sudo yum update
-elif [[ `command -v pacman` ]]; then
-echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
-	sudo pacman -Syy
-fi
 }
+update() {
+	if [[ `command -v apt-get` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo apt-get update..."
+		sudo apt-get update > /dev/null
+	elif [[ `command -v yum` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo yum update..."
+		sudo yum update
+	elif [[ `command -v pacman` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
+		sudo pacman -Syy
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager"
+		{ reset_color; exit 1; }
+	fi
+	}
+menu() {
+	{ clear; banner; echo; }
+	cat <<- EOF
+		${RED}[${WHITE}::${RED}]${ORANGE} Select a tool to install ${RED}[${WHITE}::${RED}]${ORANGE}
 
+		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}11${RED}]${ORANGE} AWS Cli      ${RED}[${WHITE}24${RED}]${ORANGE} Ngrok
+		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}12${RED}]${ORANGE} Gcloud Cli   ${RED}[${WHITE}25${RED}]${ORANGE} Minikube  
+		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}13${RED}]${ORANGE} Azure Cli    
+		${RED}[${WHITE}04${RED}]${ORANGE} Jenkins       ${RED}[${WHITE}14${RED}]${ORANGE} Github Cli   	
+		${RED}[${WHITE}05${RED}]${ORANGE} Terraform     ${RED}[${WHITE}15${RED}]${ORANGE} Circleci Cli 	
+		${RED}[${WHITE}06${RED}]${ORANGE} Kubectl       ${RED}[${WHITE}16${RED}]${ORANGE} Jaeger
 
+		${RED}[${WHITE}99${RED}]${ORANGE} About         ${RED}[${WHITE}00${RED}]${ORANGE} Exit
 
-update
-
-
+		EOF
+}
+banner
+menu
