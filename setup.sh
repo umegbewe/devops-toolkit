@@ -72,5 +72,6 @@ menu() {
 
 		EOF
 }
+#add helm and kind kubernetes
 banner
 menu
