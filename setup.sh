@@ -97,19 +97,26 @@ docker() {
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."
 		sudo apt-get install docker-ce docker-ce-cli containerd.io >> logs.txt
 	elif [[ `command -v yum` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements......" 
-		sudo yum install -y yum-utils >> logs.txt
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Setting up docker stable repository......."	
-		sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo >> logs.txt
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."	
-		sudo yum install docker-ce docker-ce-cli containerd.io >> logs.txt
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Docker version"
-		docker --version
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Grabbing Docker 20.10.7:stable.........."
+	wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz >> logs.txt
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unpacking..........."
+	tar xzvf docker-20.10.7.tgz >> logs.txt
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} copying binaries to /usr/bin"
+	sudo cp docker/* /usr/bin/
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Docker version"
+	docker --version
 	elif [[ `command -v pacman` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
 		sudo pacman -Syy
 	else
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager"
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Grabbing Docker 20.10.7:stable.........."
+	wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz >> logs.txt
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unpacking..........."
+	tar xzvf docker-20.10.7.tgz >> logs.txt
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} copying binaries to /usr/bin"
+	sudo cp docker/* /usr/bin/
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Docker version"
+	docker --version
 		{ reset_color; exit 1; }
 	fi
 }
