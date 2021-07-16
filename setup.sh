@@ -89,7 +89,9 @@ menu() {
 
 ##docker
 docker() {
-	if [[ `command -v apt-get` ]]; then
+	if [[ `command -v docker` ]]; then
+		echo -e "\n${RED} Docker already installed"
+	elif [[ `command -v apt-get` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements....."
 		sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release >> logs.txt
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Adding Docker’s official GPG key........"
