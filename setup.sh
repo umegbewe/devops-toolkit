@@ -47,10 +47,10 @@ echo "
 update() {
 	if [[ `command -v apt-get` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo apt-get update..."
-		sudo apt-get update > /dev/null
+		sudo apt-get update >> logs.txt
 	elif [[ `command -v yum` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo yum update..." 
-		sudo yum update > /dev/null
+		sudo yum update >> logs.txt
 	elif [[ `command -v pacman` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
 		sudo pacman -Syy
