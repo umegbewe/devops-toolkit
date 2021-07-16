@@ -50,7 +50,7 @@ update() {
 		sudo apt-get update > /dev/null
 	elif [[ `command -v yum` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo yum update..." 
-		sudo yum update
+		sudo yum update > /dev/null
 	elif [[ `command -v pacman` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
 		sudo pacman -Syy
@@ -93,7 +93,7 @@ docker() {
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements....."
 		sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release > /dev/null
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Adding Docker’s official GPG key........"
-		curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg > /dev/null
+		#curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg > /dev/null
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."
 		sudo apt-get install docker-ce docker-ce-cli containerd.io > /dev/null
 	elif [[ `command -v yum` ]]; then
