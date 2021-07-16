@@ -91,14 +91,20 @@ menu() {
 docker() {
 	if [[ `command -v apt-get` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements....."
-		sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release > /dev/null
+		sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release >> logs.txt
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Adding Docker’s official GPG key........"
 		#curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg > /dev/null
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."
-		sudo apt-get install docker-ce docker-ce-cli containerd.io > /dev/null
+		sudo apt-get install docker-ce docker-ce-cli containerd.io >> logs.txt
 	elif [[ `command -v yum` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo yum update..." 
-		sudo yum update
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements......" 
+		sudo yum install -y yum-utils >> logs.txt
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Setting up docker stable repository......."	
+		sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo >> logs.txt
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."	
+		sudo yum install docker-ce docker-ce-cli containerd.io >> logs.txt
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Docker version"
+		docker --version
 	elif [[ `command -v pacman` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
 		sudo pacman -Syy
