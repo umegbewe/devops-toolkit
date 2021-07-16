@@ -27,6 +27,9 @@ reset_color() {
 	tput op     # reset color
     return
 }
+
+
+
 ## banner 
 banner() {
 echo "
@@ -46,7 +49,7 @@ update() {
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo apt-get update..."
 		sudo apt-get update > /dev/null
 	elif [[ `command -v yum` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo yum update..."
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo yum update..." 
 		sudo yum update
 	elif [[ `command -v pacman` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
@@ -71,7 +74,27 @@ menu() {
 		${RED}[${WHITE}99${RED}]${ORANGE} About         ${RED}[${WHITE}00${RED}]${ORANGE} Exit
 
 		EOF
+		
+	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select an option : ${BLUE}"
+		if [[ "$REPLY" == 1 || "$REPLY" == 01 ]]; then
+				docker | docker --version
+		else
+		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
+				{ sleep 1; menu; }
+		fi
 }
+
+
+
+
+##docker
+docker() {
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."
+	sudo apt-get install docker
+}
+
+
 #add helm and kind kubernetes
 banner
+update
 menu
