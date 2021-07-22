@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -x
 ## ANSI colors (FG & BG)
 RED="$(printf '\033[31m')"  GREENS="$(printf '\033[32m')"  ORANGE="$(printf '\033[33m')"  BLUE="$(printf '\033[34m')"
 MAGENTA="$(printf '\033[35m')"  CYAN="$(printf '\033[36m')"  WHITE="$(printf '\033[37m')" BLACK="$(printf '\033[30m')"
@@ -48,12 +49,6 @@ update() {
 	if [[ `command -v apt-get` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo apt-get update..."
 		sudo apt-get -y update >> logs.txt
-	elif [[ `command -v yum` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo yum update..." 
-		sudo yum -y update >> logs.txt
-	elif [[ `command -v pacman` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
-		sudo pacman -Syy
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager"
 		{ reset_color; exit 1; }
@@ -91,27 +86,16 @@ menu() {
 
 ##docker
 docker() {
-	if [[ `command -v docker` ]]; then
-		echo -e "\n${RED}[${WHITE}+${RED}] ${WHITE} Docker already installed!!!!!!"
-	elif [[ `command -v apt-get` ]]; then
+	if [[ `command -v apt-get` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements....."
-		sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release >> logs.txt
+		sleep 1;
+		sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release > logs.txt 2>&1
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Adding Docker’s official GPG key........"
-		#curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg > /dev/null
+		sleep 1;
+		#curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."
-		sudo apt-get install docker-ce docker-ce-cli containerd.io >> logs.txt
-	elif [[ `command -v yum` ]]; then
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Grabbing Docker 20.10.7:stable.........."
-	wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz >> logs.txt
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unpacking..........."
-	tar xzvf docker-20.10.7.tgz >> logs.txt
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} copying binaries to /usr/bin"
-	sudo cp docker/* /usr/bin/
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Docker version"
-	docker --version
-	elif [[ `command -v pacman` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
-		sudo pacman -Syy
+		sleep 1;
+		sudo apt-get install -y docker-ce docker-ce-cli containerd.io > logs.txt 2>&1
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Grabbing Docker 20.10.7:stable.........."
 	wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz >> logs.txt
@@ -139,22 +123,6 @@ vagrant() {
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."
 		sleep 1
 		sudo apt-get update && sudo apt-get install vagrant
-	elif [[ `command -v yum` ]]; then
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Getting requirements..........."
-		sleep 1
-		sudo yum install -y yum-utils
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Adding Repo................."
-		sleep 1
-	sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Installing Vagrant"
-		sleep 1
-	sudo yum -y install vagrant
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Vagrant version"
-		sleep 1
-	vagrant --version
-	elif [[ `command -v pacman` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo pacman update..."
-		sudo pacman -Syy
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Grabbing Docker 20.10.7:stable.........."
 	wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz >> logs.txt
