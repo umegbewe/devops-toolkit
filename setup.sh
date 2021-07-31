@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -x
 ## ANSI colors (FG & BG)
 RED="$(printf '\033[31m')"  GREENS="$(printf '\033[32m')"  ORANGE="$(printf '\033[33m')"  BLUE="$(printf '\033[34m')"
 MAGENTA="$(printf '\033[35m')"  CYAN="$(printf '\033[36m')"  WHITE="$(printf '\033[37m')" BLACK="$(printf '\033[30m')"
@@ -72,7 +71,7 @@ menu() {
 		
 	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select an option : ${BLUE}"
 		if [[ "$REPLY" == 1 || "$REPLY" == 01 ]]; then
-				docker | docker --version
+				docker --version && echo ${RED} "Docker already installed" && sleep 2 && menu;
 		elif [[ "$REPLY" == 2 || "$REPLY" == 02 ]]; then
 				vagrant | vagrant --version
 		else
@@ -84,60 +83,7 @@ menu() {
 
 
 
-##docker
-docker() {
-	if [[ `command -v apt-get` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements....."
-		sleep 1;
-		sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release > logs.txt 2>&1
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Adding Docker’s official GPG key........"
-		sleep 1;
-		#curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."
-		sleep 1;
-		sudo apt-get install -y docker-ce docker-ce-cli containerd.io > logs.txt 2>&1
-	else
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Grabbing Docker 20.10.7:stable.........."
-	wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz >> logs.txt
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unpacking..........."
-	tar xzvf docker-20.10.7.tgz >> logs.txt
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} copying binaries to /usr/bin"
-	sudo cp docker/* /usr/bin/
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Docker version"
-	docker --version
-		{ reset_color; exit 1; }
-	fi
-}
-
-vagrant() {
-	
-	if [[ `command -v umegbewe` ]]; then
-		echo -e "\n${RED}[${WHITE}+${RED}] ${WHITE} Vagrant already installed!!!!!!"
-	elif [[ `command -v apt-get` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements....."
-		sleep 1
-		curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - >> logs.txt
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Adding Vagrant Repository"
-		sleep 1
-		sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Installing Docker......."
-		sleep 1
-		sudo apt-get update && sudo apt-get install vagrant
-	else
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Grabbing Docker 20.10.7:stable.........."
-	wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz >> logs.txt
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unpacking..........."
-	tar xzvf docker-20.10.7.tgz >> logs.txt
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} copying binaries to /usr/bin"
-	sudo cp docker/* /usr/bin/
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Docker version"
-	docker --version
-		{ reset_color; exit 1; }
-	fi
-}
-
-
 #add helm and kind kubernetes
 banner
-update
+#update
 menu
