@@ -73,7 +73,7 @@ menu() {
 		if [[ "$REPLY" == 1 || "$REPLY" == 01 ]]; then
 			docker --version && echo ${RED} "Docker already installed" && sleep 2 && menu || dockerin
 		elif [[ "$REPLY" == 2 || "$REPLY" == 02 ]]; then
-			vagrant --version && echo ${RED} "Vagrant already installed" && sleep 2 && menu || echo "mebs" 
+			vagrant --version && echo ${RED} "Vagrant already installed" && sleep 2 && menu || vagrantin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -99,6 +99,19 @@ function dockerin {
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
 	fi
 	}
+
+function vagrantin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian detected installing Vagrant.........."
+	sleep 1
+	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
+	sudo apt-get update && sudo apt-get install vagrant
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
+}
+
 
 
 #add helm and kind kubernetes
