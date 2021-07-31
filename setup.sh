@@ -58,13 +58,13 @@ menu() {
 	cat <<- EOF
 		${RED}[${WHITE}::${RED}]${ORANGE} Select a tool to install ${RED}[${WHITE}::${RED}]${ORANGE}
 
-		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}07${RED}]${ORANGE} AWS Cli      
-		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}08${RED}]${ORANGE} Gcloud Cli    
-		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}09${RED}]${ORANGE} Azure Cli    
-		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}10${RED}]${ORANGE} Github Cli   	
-		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli 	
-		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}12${RED}]${ORANGE} Jaeger
-		${RED}[${WHITE}06${RED}]${ORANGE} Kind	   ${RED}[${WHITE}13${RED}]${ORANGE} Ngrok
+		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}08${RED}]${ORANGE} AWS Cli      
+		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}09${RED}]${ORANGE} Gcloud Cli    
+		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}10${RED}]${ORANGE} Azure Cli    
+		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}11${RED}]${ORANGE} Github Cli   	
+		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}12${RED}]${ORANGE} Circleci Cli 	
+		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}13${RED}]${ORANGE} Jaeger
+		${RED}[${WHITE}07${RED}]${ORANGE} Kind	   ${RED}[${WHITE}14${RED}]${ORANGE} Ngrok
 		
 		${RED}[${WHITE}99${RED}]${ORANGE} About         ${RED}[${WHITE}00${RED}]${ORANGE} Exit
 
@@ -80,7 +80,13 @@ menu() {
 		elif [[ "$REPLY" == 4 || "$REPLY" == 04 ]]; then
 			terraform --version && echo ${RED} "Terraform already installed" && sleep 2 && menu || terraformin
 		elif [[ "$REPLY" == 5 || "$REPLY" == 05 ]]; then
-			kubectl version --short | head -n 1 && echo ${RED} "Kubectl already installed" && sleep 2 && menu || kubectlin
+			kubectl version --short && echo ${RED} "Kubectl already installed" && sleep 2 && menu || kubectlin
+		elif [[ "$REPLY" == 6 || "$REPLY" == 06 ]]; then
+			minikube version --short && echo ${RED} "Minikube already installed" && sleep 2 && menu || minikubein
+		elif [[ "$REPLY" == 7 || "$REPLY" == 07 ]]; then
+			kind --version && echo ${RED} "Kind already installed" && sleep 2 && menu || kindin
+		elif [[ "$REPLY" == 8 || "$REPLY" == 08 ]]; then
+			aws --version && echo ${RED} "AWS Cli already installed" && sleep 2 && menu || awsclin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -168,6 +174,46 @@ function kubectlin {
 	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
+}
+
+function minikubein {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Minikube.........."
+	sleep 1
+	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+	sudo dpkg -i minikube_latest_amd64.deb && echo ${RED} "Minikube installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
+}
+
+function kindin {
+	if [[ `uname | grep "Linux"` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux detected installing Kind.........."
+	sleep 1
+	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64 && \
+	sudo chmod +x ./kind && \
+	sudo mv ./kind /usr/bin/kind && echo ${RED} "Kind installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
+	fi
+}
+
+function awsclin {
+	if [[ `uname | grep "Linux"` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux detected installing AWS CLI.........."
+	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip" && \
+	unzip awscliv2.zip && \
+	sudo ./aws/install && echo ${RED} "AWS CLI installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
 	fi
 }
 
