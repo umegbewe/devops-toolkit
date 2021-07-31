@@ -58,13 +58,14 @@ menu() {
 	cat <<- EOF
 		${RED}[${WHITE}::${RED}]${ORANGE} Select a tool to install ${RED}[${WHITE}::${RED}]${ORANGE}
 
-		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}07${RED}]${ORANGE} AWS Cli      ${RED}[${WHITE}13${RED}]${ORANGE} Ngrok
+		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}07${RED}]${ORANGE} AWS Cli      
 		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}08${RED}]${ORANGE} Gcloud Cli    
 		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}09${RED}]${ORANGE} Azure Cli    
-		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}10${RED}]${ORANGE} Github Cli   	
-		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli 	
+		${RED}[${WHITE}04${RED}]${ORANGE} Terraform		${RED}[${WHITE}10${RED}]${ORANGE} Github Cli   	
+		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl		${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli 	
 		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}12${RED}]${ORANGE} Jaeger
-
+		${RED}[${WHITE}06${RED}]${ORANGE} Kind			${RED}[${WHITE}13${RED}]${ORANGE} Ngrok
+		
 		${RED}[${WHITE}99${RED}]${ORANGE} About         ${RED}[${WHITE}00${RED}]${ORANGE} Exit
 
 		EOF
@@ -76,8 +77,10 @@ menu() {
 			vagrant --version && echo ${RED} "Vagrant already installed" && sleep 2 && menu || vagrantin
 		elif [[ "$REPLY" == 3 || "$REPLY" == 03 ]]; then
 			ansible --version && echo ${RED} "Ansible already installed" && sleep 2 && menu || ansiblein
-		elif [[ "$REPLY" == 4 || "$REPLY" == 03 ]]; then
+		elif [[ "$REPLY" == 4 || "$REPLY" == 04 ]]; then
 			terraform --version && echo ${RED} "Terraform already installed" && sleep 2 && menu || terraformin
+		elif [[ "$REPLY" == 5 || "$REPLY" == 05 ]]; then
+			kubectl version --short | head -n 1 && echo ${RED} "Kubectl already installed" && sleep 2 && menu || kubectlin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -144,13 +147,28 @@ function terraformin {
 	sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl && \
 	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
 	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
-	sudo apt-get update && sudo apt-get install terraform && echo ${RED} "Ansible installed!!!"
+	sudo apt-get update && sudo apt-get install terraform && echo ${RED} "Terraform installed!!!"
 	sleep 3
 	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
 	fi
 	
+}
+
+function kubectlin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Kubectl.........."
+	sleep 1
+	sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl && \
+	sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg && \
+	echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list && \
+	sudo apt-get update && sudo apt-get install -y kubectl && echo ${RED} "Kubectl installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
 }
 
 
