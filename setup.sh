@@ -81,19 +81,20 @@ menu() {
 }
 
 function dockerin {
-	if [[ `cat /etc/os-release | grep "Ubuntu"` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu detected installing docker.........."
 	sleep 1
-	sudo apt-get update && sudo apt-get install -y docker.io >> logs.txt 2>&1
+	sudo apt-get update && sudo apt-get install -y docker.io
 	menu
-	elif [[ `cat /etc/os-release | grep "ID=debian"` ]]; then
+	elif [[ `cat /etc/os-release | grep 'ID=debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Debian detected installing docker.........."
 	sudo apt remove docker docker-engine docker.io && \
 	sudo apt-get update && \
 	sudo apt-get install apt-transport-https ca-certificates software-properties-common curl gnupg lsb-release && \
 	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian buster stable" && \
-	sudo apt-get update && sudo apt install docker-ce docker-ce-cli containerd.io
+	sudo apt-get update && sudo apt install -y docker-ce docker-ce-cli containerd.io
+	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
 	fi
