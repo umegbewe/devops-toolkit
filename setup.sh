@@ -59,11 +59,11 @@ menu() {
 		${RED}[${WHITE}::${RED}]${ORANGE} Select a tool to install ${RED}[${WHITE}::${RED}]${ORANGE}
 
 		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}07${RED}]${ORANGE} AWS Cli      ${RED}[${WHITE}13${RED}]${ORANGE} Ngrok
-		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}08${RED}]${ORANGE} Gcloud Cli   ${RED}[${WHITE}14${RED}]${ORANGE} Minikube  
+		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}08${RED}]${ORANGE} Gcloud Cli    
 		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}09${RED}]${ORANGE} Azure Cli    
-		${RED}[${WHITE}04${RED}]${ORANGE} Jenkins       ${RED}[${WHITE}10${RED}]${ORANGE} Github Cli   	
-		${RED}[${WHITE}05${RED}]${ORANGE} Terraform     ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli 	
-		${RED}[${WHITE}06${RED}]${ORANGE} Kubectl       ${RED}[${WHITE}12${RED}]${ORANGE} Jaeger
+		${RED}[${WHITE}04${RED}]${ORANGE} Terraform		${RED}[${WHITE}10${RED}]${ORANGE} Github Cli   	
+		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	    ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli 	
+		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}12${RED}]${ORANGE} Jaeger
 
 		${RED}[${WHITE}99${RED}]${ORANGE} About         ${RED}[${WHITE}00${RED}]${ORANGE} Exit
 
@@ -76,6 +76,8 @@ menu() {
 			vagrant --version && echo ${RED} "Vagrant already installed" && sleep 2 && menu || vagrantin
 		elif [[ "$REPLY" == 3 || "$REPLY" == 03 ]]; then
 			ansible --version && echo ${RED} "Ansible already installed" && sleep 2 && menu || ansiblein
+		elif [[ "$REPLY" == 4 || "$REPLY" == 03 ]]; then
+			terraform --version && echo ${RED} "Terraform already installed" && sleep 2 && menu || terraformin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -135,6 +137,21 @@ function ansiblein {
 	fi
 }
 
+function terraformin {
+	if [[`cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Terraform.........."
+	sleep 1
+	sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl && \
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
+	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
+	sudo apt-get update && sudo apt-get install terraform && echo ${RED} "Ansible installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
+	
+}
 
 
 #add helm and kind kubernetes
