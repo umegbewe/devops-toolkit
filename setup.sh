@@ -86,11 +86,12 @@ function dockerin {
 	sleep 1
 	sudo apt-get update && sudo apt-get install -y docker.io >> logs.txt 2>&1
 	menu
-	elif [[ `apt-get` ]]; then
+	elif [[ `cat /etc/os-release | grep "ID=debian"` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Debian detected installing docker.........."
 	sudo apt remove docker docker-engine docker.io containerd runc && \
-	sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common wget && \
-	sudo apt-key fingerprint 0EBFCD88 && \
-	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
+	sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release && \
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg \
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && \
 	sudo apt-get update && sudo apt install docker-ce docker-ce-cli containerd.io
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
