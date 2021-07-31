@@ -71,16 +71,22 @@ menu() {
 		
 	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select an option : ${BLUE}"
 		if [[ "$REPLY" == 1 || "$REPLY" == 01 ]]; then
-				docker --version && echo ${RED} "Docker already installed" && sleep 2 && menu;
+			docker --version && echo ${RED} "Docker already installed" && sleep 2 && menu || dockerin
 		elif [[ "$REPLY" == 2 || "$REPLY" == 02 ]]; then
-				vagrant | vagrant --version
+			vagrant --version && echo ${RED} "Vagrant already installed" && sleep 2 && menu || echo "mebs" 
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
 		fi
 }
 
-
+function dockerin {
+	if [`command uname -a | grep "Ubuntu"`]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu detected installing docker.........."
+	sleep 1
+	sudo apt-get install docker.io >> logs.txt 2>&1
+	fi
+	}
 
 
 #add helm and kind kubernetes
