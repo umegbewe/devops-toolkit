@@ -81,10 +81,19 @@ menu() {
 }
 
 function dockerin {
-	if [`command uname -a | grep "Ubuntu"`]; then
+	if [[ `cat /etc/os-release | grep "Ubuntu"` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu detected installing docker.........."
 	sleep 1
-	sudo apt-get install docker.io >> logs.txt 2>&1
+	sudo apt-get update && sudo apt-get install -y docker.io >> logs.txt 2>&1
+	menu
+	elif [[ `apt-get` ]]; then
+	sudo apt remove docker docker-engine docker.io containerd runc && \
+	sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common wget && \
+	sudo apt-key fingerprint 0EBFCD88 && \
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
+	sudo apt-get update && sudo apt install docker-ce docker-ce-cli containerd.io
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
 	fi
 	}
 
