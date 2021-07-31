@@ -74,6 +74,8 @@ menu() {
 			docker --version && echo ${RED} "Docker already installed" && sleep 2 && menu || dockerin
 		elif [[ "$REPLY" == 2 || "$REPLY" == 02 ]]; then
 			vagrant --version && echo ${RED} "Vagrant already installed" && sleep 2 && menu || vagrantin
+		elif [[ "$REPLY" == 3 || "$REPLY" == 03 ]]; then
+			ansible --version && echo ${RED} "Ansible already installed" && sleep 2 && menu || ansiblein
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -93,7 +95,8 @@ function dockerin {
 	sudo apt-get install apt-transport-https ca-certificates software-properties-common curl gnupg lsb-release && \
 	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian buster stable" && \
-	sudo apt-get update && sudo apt install -y docker-ce docker-ce-cli containerd.io
+	sudo apt-get update && sudo apt install -y docker-ce docker-ce-cli containerd.io && echo ${RED} "Docker installed!!!"
+	sleep 3
 	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
@@ -102,10 +105,30 @@ function dockerin {
 
 function vagrantin {
 	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian detected installing Vagrant.........."
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Vagrant.........."
 	sleep 1
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
-	sudo apt-get update && sudo apt-get install vagrant
+	sudo apt-get update && sudo apt-get install vagrant && echo ${RED} "Vagrant installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
+}
+
+function ansiblein {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Ansible.........."
+	sleep 1
+	sudo apt install software-properties-common && \
+	sudo add-apt-repository --yes --update ppa:ansible/ansible && \
+	sudo apt install ansible && echo ${RED} "Ansible installed!!!"
+	sleep 3
+	menu
+	elif [[ `cat /etc/os-release | grep 'Debian\||ID_LIKE=debian'` ]]; then
+	sudo apt-get install ansible && echo ${RED} "Ansible installed!!!"
+	sleep 3
 	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
