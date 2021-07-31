@@ -138,7 +138,7 @@ function ansiblein {
 }
 
 function terraformin {
-	if [[`cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Terraform.........."
 	sleep 1
 	sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl && \
