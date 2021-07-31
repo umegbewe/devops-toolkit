@@ -61,8 +61,8 @@ menu() {
 		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}07${RED}]${ORANGE} AWS Cli      ${RED}[${WHITE}13${RED}]${ORANGE} Ngrok
 		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}08${RED}]${ORANGE} Gcloud Cli    
 		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}09${RED}]${ORANGE} Azure Cli    
-		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	${RED}[${WHITE}10${RED}]${ORANGE} Github Cli   	
-		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli 	
+		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}10${RED}]${ORANGE} Github Cli   	
+		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli 	
 		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}12${RED}]${ORANGE} Jaeger
 
 		${RED}[${WHITE}99${RED}]${ORANGE} About         ${RED}[${WHITE}00${RED}]${ORANGE} Exit
