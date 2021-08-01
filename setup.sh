@@ -90,8 +90,10 @@ menu() {
 			aws --version && echo ${RED} "AWS Cli already installed" && sleep 2 && menu || awsclin
 		elif [[ "$REPLY" == 9 || "$REPLY" == 09 ]]; then
 			gcloud --version && echo ${RED} "Gloud Cli already installed" && sleep 2 && menu || gloudsdkin
-		elif [[ "$REPLY" == 10 || "$REPLY" == 10 ]]; then
+		elif [[ "$REPLY" == 10 || "$REPLY" == 010 ]]; then
 			az --version && echo ${RED} "Azure Cli already installed" && sleep 2 && menu || azureclin
+		elif [[ "$REPLY" == 11 || "$REPLY" == 011 ]]; then
+			circleci --version && echo ${RED} "CircleCI Cli already installed" && sleep 2 && menu || circleclin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
