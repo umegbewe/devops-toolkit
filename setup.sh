@@ -102,7 +102,7 @@ menu() {
 			waypoint --version && echo ${RED} "Waypoint already installed" && sleep 2 && menu || waypointin
 		elif [[ "$REPLY" == 15 || "$REPLY" == 015 ]]; then
 			nomad --version && echo ${RED} "Nomad already installed" && sleep 2 && menu || nomadin
-		elif [[ "$REPLY" == 15 || "$REPLY" == 015 ]]; then
+		elif [[ "$REPLY" == 16 || "$REPLY" == 016 ]]; then
 			ngrok --version && echo ${RED} "Ngrok already installed" && sleep 2 && menu || ngrokin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
