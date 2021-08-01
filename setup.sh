@@ -53,6 +53,7 @@ update() {
 		{ reset_color; exit 1; }
 	fi
 	}
+	
 menu() {
 	{ clear; banner; echo; }
 	cat <<- EOF
@@ -90,7 +91,7 @@ menu() {
 		elif [[ "$REPLY" == 9 || "$REPLY" == 09 ]]; then
 			gcloud --version && echo ${RED} "Gloud Cli already installed" && sleep 2 && menu || gloudsdkin
 		elif [[ "$REPLY" == 10 || "$REPLY" == 10 ]]; then
-			az -version && echo ${RED} "Azure Cli already installed" && sleep 2 && menu || azureclin
+			az --version && echo ${RED} "Azure Cli already installed" && sleep 2 && menu || azureclin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -245,6 +246,7 @@ function azureclin {
 	echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list && \
 	sudo apt-get update && sudo apt-get install azure-cli && echo ${RED} "Azure Cli installed!!!"
 	sleep 3
+	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
 	fi
