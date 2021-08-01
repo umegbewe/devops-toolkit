@@ -62,8 +62,8 @@ menu() {
 		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}08${RED}]${ORANGE} AWS Cli      
 		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}09${RED}]${ORANGE} Gcloud Cli    
 		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}10${RED}]${ORANGE} Azure Cli    
-		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}11${RED}]${ORANGE} Github Cli   	
-		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}12${RED}]${ORANGE} Circleci Cli 	
+		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli
+		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}12${RED}]${ORANGE} Github Cli 	
 		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}13${RED}]${ORANGE} Jaeger
 		${RED}[${WHITE}07${RED}]${ORANGE} Kind	   ${RED}[${WHITE}14${RED}]${ORANGE} Ngrok
 		
@@ -249,6 +249,17 @@ function azureclin {
 	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
+}
+
+function circlecin {
+	if [[ `uname | grep "Linux"` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Azure Cli.........."
+	curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash && echo ${RED} "CircleCI Cli installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
 	fi
 }
 
