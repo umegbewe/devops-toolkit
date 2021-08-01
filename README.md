@@ -3,9 +3,7 @@
 
 Quickly set-up your Cloud and Devops development environment.
 
-
-<img src="https://raw.githubusercontent.com/umegbewe/devops-toolkit/main/.../Screenshot-Google.png" width="100px" height="100px">
-
+  <img src="https://raw.githubusercontent.com/umegbewe/devops-toolkit/main/.../Screenshot-Google.png" width="550px" height="300px">
 Linux has many distros and sometimes it gets tricky for users to install developments tools they need, Devops-toolkit solves that by doing everything automatically for you. Life is easy. 
 
 ## Badges
