@@ -1,42 +1,31 @@
 
 # DevOps-Toolkit
 
-  <img src="https://raw.githubusercontent.com/umegbewe/devops-toolkit/main/.../Screenshot-Google.png" width="550px" height="300px">
-Quickly set-up your Cloud and Devops development environment, Linux has many distros and sometimes it gets tricky for users to install developments tools they need, after searching the internet and reading blogs nothing still makes sense, Devops-toolkit solves that by doing everything automatically for you. Life is easy na. 
-
-## Badges
-
-Add badges from somewhere like: [shields.io](https://shields.io/)
-
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+![Linux Cli](https://img.shields.io/badge/Linux-Shell-green)
+
+  <img src="https://raw.githubusercontent.com/umegbewe/devops-toolkit/main/.../Screenshot-Google.png" width="550px" height="300px">
+DevOps-toolkit helps you easily and quickly set-up your Cloud and Devops development environment. <br>Linux got many distros and sometimes it gets tricky for users to install developments tools they need, after searching the internet and reading blogs nothing still makes sense Devops-toolkit solves that by doing everything automatically for you. Life is easy na. 
 
   
-## Run Locally
+## Run Package
 
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/umegbewe/devops-toolkit
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd devops-toolkit
 ```
 
-Install dependencies
+Run Script
 
 ```bash
-  npm install
-```
-
-Start the server
-
-```bash
-  npm run start
+  bash setup.sh
 ```
 
   
