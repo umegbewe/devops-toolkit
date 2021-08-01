@@ -93,7 +93,9 @@ menu() {
 		elif [[ "$REPLY" == 10 || "$REPLY" == 010 ]]; then
 			az --version && echo ${RED} "Azure Cli already installed" && sleep 2 && menu || azureclin
 		elif [[ "$REPLY" == 11 || "$REPLY" == 011 ]]; then
-			circleci --version && echo ${RED} "CircleCI Cli already installed" && sleep 2 && menu || circleclin
+			circleci version && echo ${RED} "CircleCI Cli already installed" && sleep 2 && menu || circleclin
+		elif [[ "$REPLY" == 12 || "$REPLY" == 012 ]]; then
+			gh --version && echo ${RED} "Github Cli already installed" && sleep 2 && menu || githubclin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -214,7 +216,7 @@ function kindin {
 
 function awsclin {
 	if [[ `uname | grep "Linux"` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux detected installing AWS Cli.........."
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux OS detected installing AWS Cli.........."
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip" && \
 	sudo apt-get install unzip && \
 	unzip awscliv2.zip && \
@@ -254,15 +256,29 @@ function azureclin {
 	fi
 }
 
-function circlecin {
+function circleclin {
 	if [[ `uname | grep "Linux"` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Azure Cli.........."
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux OS detected installing Azure Cli.........."
 	curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash && echo ${RED} "CircleCI Cli installed!!!"
 	sleep 3
 	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
 	fi
+}
+
+function githubclin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Azure Cli.........."
+	curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg && \
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
+	sudo apt update && sudo apt install gh && echo ${RED} "Github Cli installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
+	fi
+
 }
 
 
