@@ -33,4 +33,14 @@ Run Script
 
 <img src="https://raw.githubusercontent.com/umegbewe/devops-toolkit/main/.../screenshot.png" width="600px" height="400px">
 
-  
+## Contributing
+
+Contributions are always welcome! File an issue or send in that pull request.
+
+## Thanks
+
+Make me feel appreciated, star this repo, follow me on [Twitter](https://twitter.com/umegbewe) and spread the word. Thanks ❤️
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
