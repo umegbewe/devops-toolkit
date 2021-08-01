@@ -104,6 +104,8 @@ menu() {
 			nomad --version && echo ${RED} "Nomad already installed" && sleep 2 && menu || nomadin
 		elif [[ "$REPLY" == 16 || "$REPLY" == 016 ]]; then
 			ngrok --version && echo ${RED} "Ngrok already installed" && sleep 2 && menu || ngrokin
+		elif [[ "$REPLY" == 00 || "$REPLY" == 000 ]]; then
+			echo -ne "\n${WHITEBG}[${BLACK}!${BLACK}]${BLACK} Have a good day and spread the love\n\n" && exit
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -341,6 +343,7 @@ function ngrokin {
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
 	fi
 }
+
 
 banner
 #update
