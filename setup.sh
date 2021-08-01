@@ -96,9 +96,9 @@ menu() {
 			circleci version && echo ${RED} "CircleCI Cli already installed" && sleep 2 && menu || circleclin
 		elif [[ "$REPLY" == 12 || "$REPLY" == 012 ]]; then
 			gh --version && echo ${RED} "Github Cli already installed" && sleep 2 && menu || githubclin
-		elif [[ "$REPLY" == 12 || "$REPLY" == 012 ]]; then
-			packer --version && echo ${RED} "Packer already installed" && sleep 2 && menu || packerin
 		elif [[ "$REPLY" == 13 || "$REPLY" == 013 ]]; then
+			packer --version && echo ${RED} "Packer already installed" && sleep 2 && menu || packerin
+		elif [[ "$REPLY" == 14 || "$REPLY" == 014 ]]; then
 			waypoint --version && echo ${RED} "Waypoint already installed" && sleep 2 && menu || waypointin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
