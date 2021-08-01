@@ -105,7 +105,7 @@ menu() {
 		elif [[ "$REPLY" == 16 || "$REPLY" == 016 ]]; then
 			ngrok --version && echo ${RED} "Ngrok already installed" && sleep 2 && menu || ngrokin
 		elif [[ "$REPLY" == 00 || "$REPLY" == 000 ]]; then
-			echo -ne "\n${WHITEBG}[${BLACK}!${BLACK}]${BLACK} Have a good day and spread the love\n\n" && exit
+			echo -ne "${RESETBG}\n${WHITEBG}${BLACK}[${BLACK}!${BLACK}]${BLACK} Have a good day and spread the love 💖 ${RESETBG}\n" && exit
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
