@@ -31,7 +31,7 @@ reset_color() {
 
 
 ## banner 
-banner() {
+header() {
 echo "
 		${GREENS} ____              ___              _____           _ _    _ _   
 		${ORANGE}|  _ \  _____   __/ _ \ _ __  ___  |_   _|__   ___ | | | _(_) |_               
@@ -44,18 +44,10 @@ echo "
 		${GREEN}[${WHITE}-${GREENS}]${GREENS} Tool Created by ${RED}mosthated ${GREENS}(umegbewe nwebedu)${WHITE}
 "
 }
-update() {
-	if [[ `command -v apt-get` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements..."
-		sudo apt-get install unzip /dev/null
-	else
-	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager"
-		{ reset_color; exit 1; }
-	fi
-	}
+
 	
 menu() {
-	{ clear; banner; echo; }
+	{ clear; header; echo; }
 	cat <<- EOF
 		${RED}[${WHITE}::${RED}]${ORANGE} Select a tool to install ${RED}[${WHITE}::${RED}]${ORANGE}
 
@@ -345,6 +337,6 @@ function ngrokin {
 }
 
 
-banner
+header
 #update
 menu
