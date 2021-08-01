@@ -102,6 +102,8 @@ menu() {
 			waypoint --version && echo ${RED} "Waypoint already installed" && sleep 2 && menu || waypointin
 		elif [[ "$REPLY" == 15 || "$REPLY" == 015 ]]; then
 			nomad --version && echo ${RED} "Nomad already installed" && sleep 2 && menu || nomadin
+		elif [[ "$REPLY" == 15 || "$REPLY" == 015 ]]; then
+			ngrok --version && echo ${RED} "Ngrok already installed" && sleep 2 && menu || ngrokin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -310,7 +312,7 @@ function waypointin {
 	sleep 3
 	menu
 	else
-	cho -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
 	fi
 }
 
@@ -323,7 +325,20 @@ function nomadin {
 	sleep 3
 	menu
 	else
-	cho -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
+	fi
+}
+
+function ngrokin {
+	if [[ `uname | grep "Linux"` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux OS detected installing Ngrok.........."
+	sudo apt-get install unzip && wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
+	unzip ngrok-stable-linux-amd64.zip && \
+	sudo mv ./ngrok /usr/bin/ngrok && echo ${RED} "Ngrok installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
 	fi
 }
 
