@@ -87,6 +87,10 @@ menu() {
 			kind --version && echo ${RED} "Kind already installed" && sleep 2 && menu || kindin
 		elif [[ "$REPLY" == 8 || "$REPLY" == 08 ]]; then
 			aws --version && echo ${RED} "AWS Cli already installed" && sleep 2 && menu || awsclin
+		elif [[ "$REPLY" == 9 || "$REPLY" == 09 ]]; then
+			gcloud --version && echo ${RED} "Gloud Cli already installed" && sleep 2 && menu || gloudsdkin
+		elif [[ "$REPLY" == 10 || "$REPLY" == 10 ]]; then
+			az -version && echo ${RED} "Azure Cli already installed" && sleep 2 && menu || azureclin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -162,6 +166,7 @@ function terraformin {
 	
 }
 
+
 function kubectlin {
 	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Kubectl.........."
@@ -206,7 +211,7 @@ function kindin {
 
 function awsclin {
 	if [[ `uname | grep "Linux"` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux detected installing AWS CLI.........."
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux detected installing AWS Cli.........."
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip" && \
 	unzip awscliv2.zip && \
 	sudo ./aws/install && echo ${RED} "AWS CLI installed!!!"
@@ -214,6 +219,33 @@ function awsclin {
 	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
+	fi
+}
+
+function gloudsdkin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Gcloud SDK.........."
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
+	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+	sudo apt-get update && sudo apt-get install -y google-cloud-sdk && echo ${RED} "Gcloud SDK installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
+}
+
+function azureclin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Azure Cli.........."
+	sudo apt-get update && sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg && \
+	curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null && \
+	AZ_REPO=$(lsb_release -cs)
+	echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list && \
+	sudo apt-get update && sudo apt-get install azure-cli && echo ${RED} "Azure Cli installed!!!"
+	sleep 3
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
 	fi
 }
 
