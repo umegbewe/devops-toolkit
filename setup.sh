@@ -59,8 +59,8 @@ menu() {
 	cat <<- EOF
 		${RED}[${WHITE}::${RED}]${ORANGE} Select a tool to install ${RED}[${WHITE}::${RED}]${ORANGE}
 
-		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}08${RED}]${ORANGE} AWS Cli   	${RED}[${WHITE}14${RED}]${ORANGE} Ngrok
-		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}09${RED}]${ORANGE} Gcloud Cli    	${RED}[${WHITE}14${RED}]${ORANGE} Ngrok
+		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}08${RED}]${ORANGE} AWS Cli   	${RED}[${WHITE}15${RED}]${ORANGE} Nomad
+		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}09${RED}]${ORANGE} Gcloud Cli    	${RED}[${WHITE}16${RED}]${ORANGE} Ngrok
 		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}10${RED}]${ORANGE} Azure Cli    
 		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli
 		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}12${RED}]${ORANGE} Github Cli 	
@@ -100,6 +100,8 @@ menu() {
 			packer --version && echo ${RED} "Packer already installed" && sleep 2 && menu || packerin
 		elif [[ "$REPLY" == 14 || "$REPLY" == 014 ]]; then
 			waypoint --version && echo ${RED} "Waypoint already installed" && sleep 2 && menu || waypointin
+		elif [[ "$REPLY" == 15 || "$REPLY" == 015 ]]; then
+			nomad --version && echo ${RED} "Nomad already installed" && sleep 2 && menu || nomadin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -312,6 +314,18 @@ function waypointin {
 	fi
 }
 
+function nomadin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Nomad........."
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
+	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
+	sudo apt-get update && sudo apt-get install nomad && echo ${RED} "Nomad installed!!!"
+	sleep 3
+	menu
+	else
+	cho -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
+	fi
+}
 
 banner
 #update
