@@ -31,6 +31,6 @@ Run Script
   
 ## Screenshots
 
-<img src="https://raw.githubusercontent.com/umegbewe/devops-toolkit/main/.../Screenshot-Google.png" width="550px" height="300px">
+<img src="https://raw.githubusercontent.com/umegbewe/devops-toolkit/main/.../screenshot.png" width="600px" height="400px">
 
   
