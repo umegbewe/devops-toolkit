@@ -46,8 +46,8 @@ echo "
 }
 update() {
 	if [[ `command -v apt-get` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Running sudo apt-get update..."
-		sudo apt-get -y update >> logs.txt
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Getting requirements..."
+		sudo apt-get install unzip /dev/null
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager"
 		{ reset_color; exit 1; }
@@ -213,6 +213,7 @@ function awsclin {
 	if [[ `uname | grep "Linux"` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux detected installing AWS Cli.........."
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip" && \
+	sudo apt-get install unzip && \
 	unzip awscliv2.zip && \
 	sudo ./aws/install && echo ${RED} "AWS CLI installed!!!"
 	sleep 3
