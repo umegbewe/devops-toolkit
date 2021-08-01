@@ -31,6 +31,6 @@ Run Script
   
 ## Screenshots
 
-![App Screenshot](https://raw.githubusercontent.com/umegbewe/devops-toolkit/main/.../screenshot.png)
+<img src="https://raw.githubusercontent.com/umegbewe/devops-toolkit/main/.../Screenshot-Google.png" width="550px" height="300px">
 
   
