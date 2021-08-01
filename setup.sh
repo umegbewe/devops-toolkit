@@ -59,13 +59,13 @@ menu() {
 	cat <<- EOF
 		${RED}[${WHITE}::${RED}]${ORANGE} Select a tool to install ${RED}[${WHITE}::${RED}]${ORANGE}
 
-		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}08${RED}]${ORANGE} AWS Cli      
-		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}09${RED}]${ORANGE} Gcloud Cli    
+		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}08${RED}]${ORANGE} AWS Cli   	${RED}[${WHITE}14${RED}]${ORANGE} Ngrok
+		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}09${RED}]${ORANGE} Gcloud Cli    	${RED}[${WHITE}14${RED}]${ORANGE} Ngrok
 		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}10${RED}]${ORANGE} Azure Cli    
 		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli
 		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}12${RED}]${ORANGE} Github Cli 	
 		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}13${RED}]${ORANGE} Packer
-		${RED}[${WHITE}07${RED}]${ORANGE} Kind	   ${RED}[${WHITE}14${RED}]${ORANGE} Ngrok
+		${RED}[${WHITE}07${RED}]${ORANGE} Kind	   ${RED}[${WHITE}14${RED}]${ORANGE} Waypoint
 		
 		${RED}[${WHITE}99${RED}]${ORANGE} About         ${RED}[${WHITE}00${RED}]${ORANGE} Exit
 
@@ -98,6 +98,8 @@ menu() {
 			gh --version && echo ${RED} "Github Cli already installed" && sleep 2 && menu || githubclin
 		elif [[ "$REPLY" == 12 || "$REPLY" == 012 ]]; then
 			packer --version && echo ${RED} "Packer already installed" && sleep 2 && menu || packerin
+		elif [[ "$REPLY" == 13 || "$REPLY" == 013 ]]; then
+			waypoint --version && echo ${RED} "Waypoint already installed" && sleep 2 && menu || waypointin
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
@@ -288,7 +290,7 @@ function packerin {
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Packer.........."
 	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
 	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
-	sudo apt-get update && sudo apt-get install packer && echo ${RED} "Github Cli installed!!!"
+	sudo apt-get update && sudo apt-get install packer && echo ${RED} "Packer installed!!!"
 	sleep 3
 	menu
 	else
@@ -297,8 +299,15 @@ function packerin {
 	
 }
 
+function waypointin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Waypoint.........."
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
+	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
+	sudo apt-get update && sudo apt-get install waypoint && echo ${RED} "Waypoint installed!!!"
+}
 
-#add helm and kind kubernetes
+
 banner
 #update
 menu
