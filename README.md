@@ -12,19 +12,19 @@ DevOps-toolkit helps you easily and quickly set-up your Cloud and Devops develop
 
 Clone the project
 
-```bash
+```
   git clone https://github.com/umegbewe/devops-toolkit
 ```
 
 Go to the project directory
 
-```bash
+```
   cd devops-toolkit
 ```
 
 Run Script
 
-```bash
+```
   bash setup.sh
 ```
 
@@ -40,6 +40,11 @@ Contributions are always welcome! File an issue or send in that pull request.
 ## Thanks
 
 Make me feel appreciated, star this repo, follow me on [Twitter](https://twitter.com/umegbewe) and spread the word. Thanks ❤️
+
+## Credits
+
+Big thanks to [Obinna Odirionye](https://github.com/nerdeveloper) his project [Devops-Pack](https://github.com/nerdeveloper/devops-pack) is an inspiration.<br>
+Also big thanks to [Htr-Tech](https://github.com/htr-tech) for the layout.
 
 ## License
 
