@@ -126,7 +126,7 @@ function dockerin {
 	}
 
 function vagrantin {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Vagrant.........."
 	sleep 1
 	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
@@ -148,7 +148,7 @@ function ansiblein {
 	sudo apt install ansible && echo ${RED} "Ansible installed!!!"
 	sleep 3
 	menu
-	elif [[ `cat /etc/os-release | grep 'Debian\||ID_LIKE=debian'` ]]; then
+	elif [[ `cat /etc/os-release | grep 'Debian\|ID_LIKE=debian'` ]]; then
 	sudo apt-get install ansible && echo ${RED} "Ansible installed!!!"
 	sleep 3
 	menu
@@ -158,7 +158,7 @@ function ansiblein {
 }
 
 function terraformin {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Terraform.........."
 	sleep 1
 	sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl && \
@@ -175,7 +175,7 @@ function terraformin {
 
 
 function kubectlin {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Kubectl.........."
 	sleep 1
 	sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl && \
@@ -190,7 +190,7 @@ function kubectlin {
 }
 
 function minikubein {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Minikube.........."
 	sleep 1
 	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
@@ -203,7 +203,7 @@ function minikubein {
 }
 
 function kindin {
-	if [[ `uname | grep "Linux"` ]]; then
+	if [[ `uname -a | grep "Linux"` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux detected installing Kind.........."
 	sleep 1
 	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64 && \
@@ -217,7 +217,7 @@ function kindin {
 }
 
 function awsclin {
-	if [[ `uname | grep "Linux"` ]]; then
+	if [[ `uname -a | grep "Linux"` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux OS detected installing AWS Cli.........."
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip" && \
 	sudo apt-get install unzip && \
@@ -231,7 +231,7 @@ function awsclin {
 }
 
 function gloudsdkin {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Gcloud SDK.........."
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
 	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
@@ -244,7 +244,7 @@ function gloudsdkin {
 }
 
 function azureclin {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Azure Cli.........."
 	sudo apt-get update && sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg && \
 	curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null && \
@@ -259,7 +259,7 @@ function azureclin {
 }
 
 function circleclin {
-	if [[ `uname | grep "Linux"` ]]; then
+	if [[ `uname -a | grep "Linux"` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux OS detected installing Cirlceci Cli.........."
 	curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash && echo ${RED} "CircleCI Cli installed!!!"
 	sleep 3
@@ -270,13 +270,13 @@ function circleclin {
 }
 
 function githubclin {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Github Cli.........."
 	curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg && \
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
 	sudo apt update && sudo apt install gh && echo ${RED} "Github Cli installed!!!"
 	sleep 3
-	menu
+	
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
 	fi
@@ -284,7 +284,7 @@ function githubclin {
 }
 
 function packerin {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Packer.........."
 	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
 	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
@@ -298,7 +298,7 @@ function packerin {
 }
 
 function waypointin {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Waypoint.........."
 	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
 	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
@@ -311,7 +311,7 @@ function waypointin {
 }
 
 function nomadin {
-	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\||ID_LIKE=debian'` ]]; then
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Nomad........."
 	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
 	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
@@ -324,7 +324,7 @@ function nomadin {
 }
 
 function ngrokin {
-	if [[ `uname | grep "Linux"` ]]; then
+	if [[ `uname -a | grep "Linux"` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Linux OS detected installing Ngrok.........."
 	sudo apt-get install unzip && wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
 	unzip ngrok-stable-linux-amd64.zip && \
