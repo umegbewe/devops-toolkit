@@ -382,6 +382,14 @@ function nomadin {
 	sudo apt-get update && sudo apt-get install nomad && echo ${RED} "Nomad installed!!!"
 	sleep 3
 	menu
+	elif [[ `cat /etc/os-release | grep 'Rhel\|ID_LIKE=centos\|Centos\|ID_LIKE=rhel'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Yum detected installing Nomad.........."
+	sleep 1
+	sudo yum install -y yum-utils && \
+	sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo && \
+	sudo yum -y install nomad && echo ${RED} "Nomad installed!!!"
+	sleep 3
+	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
 	fi
