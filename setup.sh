@@ -385,6 +385,22 @@ function waypointin {
 	sudo apt-get update && sudo apt-get install waypoint && echo ${RED} "Waypoint installed!!!"
 	sleep 3
 	menu
+	elif [[ `cat /etc/os-release | grep 'Rhel\|ID_LIKE=centos\|Centos\|ID_LIKE=rhel'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Yum detected installing Waypoint.........."
+	sleep 1
+	sudo yum install -y yum-utils && \
+	sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo && \
+	sudo yum -y install waypoint && echo ${RED} "Waypoint installed!!!"
+	sleep 3
+	menu
+	elif [[ `cat /etc/os-release | grep 'ID="amzn"'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Yum detected installing Waypoint.........."
+	sleep 1
+	sudo yum install -y yum-utils && \
+	sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo && \
+	sudo yum -y install waypoint && echo ${RED} "Waypoint installed!!!"
+	sleep 3
+	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
 	fi
