@@ -150,8 +150,7 @@ function vagrantin {
 	sudo apt-get update && sudo apt-get install vagrant && echo ${RED} "Vagrant installed!!!"
 	sleep 3
 	menu
-	elif
-	if [[ `cat /etc/os-release | grep 'Rhel\|ID_LIKE=centos\|Centos\|ID_LIKE=rhel'` ]]; then
+	elif [[ `cat /etc/os-release | grep 'Rhel\|ID_LIKE=centos\|Centos\|ID_LIKE=rhel'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Yum detected installing Vagrant.........."
 	sleep 1
 	sudo yum install -y yum-utils && \
@@ -159,8 +158,7 @@ function vagrantin {
 	sudo yum -y install vagrant && echo ${RED} "Vagrant installed!!!"
 	sleep 3
 	menu
-	elif
-	if [[ `cat /etc/os-release | grep 'ID="amzn"'` ]]; then
+	elif [[ `cat /etc/os-release | grep 'ID="amzn"'` ]]; then
 	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Yum detected installing Vagrant.........."
 	sleep 1
 	sudo yum install -y yum-utils && \
@@ -186,6 +184,10 @@ function ansiblein {
 	sudo apt-get install ansible && echo ${RED} "Ansible installed!!!"
 	sleep 3
 	menu
+	elif [[ `cat /etc/os-release | grep 'Centos'` ]]; then
+	sudo yum install epel-release && sudo yum install ansible && echo ${RED} "Ansible installed!!!"
+	elif [[ `cat /etc/os-release | grep 'ID="rhel"'` ]]; then
+	sudo yum install ansible && echo ${RED} "Ansible installed!!!"
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
 	fi
