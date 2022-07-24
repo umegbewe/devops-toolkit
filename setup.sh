@@ -477,12 +477,33 @@ function ngrokin {
 
 function helmin {
 	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
-	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing helm.........."
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Helm.........."
 	sleep 1
 	sudo curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
 	sudo apt-get install apt-transport-https -y
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 	sudo apt-get update -y && sudo apt-get install helm -y && echo ${RED} "Helm installed!!!"
+	sleep 3
+	menu
+	elif [[ `cat /etc/os-release | grep 'Rhel\|ID_LIKE=centos\|Centos\|ID_LIKE=rhel'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Yum detected installing Helm.........."
+	sleep 1
+	sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+	sudo chmod 700 get_helm.sh && sudo ./get_helm.sh && echo ${RED} "Helm installed!!!"
+	sleep 3
+	menu
+	elif [[ `cat /etc/os-release | grep 'ID="amzn"'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Yum detected installing Helm.........."
+	sleep 1
+	sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+	sudo chmod 700 get_helm.sh && sudo ./get_helm.sh && echo ${RED} "Helm installed!!!"
+	sleep 3
+	menu
+	elif [[ "$(uname)" == "Darwin" ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Mac OS detected installing Helm.........."
+	sleep 1
+	sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+	sudo chmod 700 get_helm.sh && sudo ./get_helm.sh && echo ${RED} "Helm installed!!!"
 	sleep 3
 	menu
 	else
@@ -497,6 +518,30 @@ function terragruntin {
 	sudo apt-get install wget -y
 	wget -o terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.6/terragrunt_linux_arm64
 	sudo chmod u+x terragrunt && sudo mv terragrunt /usr/local/bin/terragrunt && echo ${RED} "Terragrunt installed!!!"
+	sleep 3
+	menu
+	elif [[ `cat /etc/os-release | grep 'Rhel\|ID_LIKE=centos\|Centos\|ID_LIKE=rhel'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Yum detected installing Helm.........."
+	sleep 1
+	sudo yum install wget -y
+	wget -o terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.6/terragrunt_linux_arm64
+	sudo chmod u+x terragrunt && sudo mv terragrunt /usr/local/bin/terragrunt && echo ${RED} "Terragrunt installed!!!"
+	sleep 3
+	menu
+	elif [[ `cat /etc/os-release | grep 'ID="amzn"'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Yum detected installing Helm.........."
+	sleep 1
+	sudo yum install wget -y
+	wget -o terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.6/terragrunt_linux_arm64
+	sudo chmod u+x terragrunt && sudo mv terragrunt /usr/local/bin/terragrunt && echo ${RED} "Terragrunt installed!!!"
+	sleep 3
+	menu
+	elif [[ "$(uname)" == "Darwin" ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Mac OS detected installing Helm.........."
+	sleep 1
+	brew install wget -y
+	wget -o terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.6/terragrunt_linux_arm64
+	chmod u+x terragrunt && sudo mv terragrunt /usr/local/bin/terragrunt && echo ${RED} "Terragrunt installed!!!"
 	sleep 3
 	menu
 	else
