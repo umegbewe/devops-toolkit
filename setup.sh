@@ -75,9 +75,9 @@ menu() {
 		${RED}[${WHITE}::${RED}]${ORANGE} Select a tool to install ${RED}[${WHITE}::${RED}]${ORANGE}
 
 		${RED}[${WHITE}01${RED}]${ORANGE} Docker        ${RED}[${WHITE}08${RED}]${ORANGE} AWS Cli   	${RED}[${WHITE}15${RED}]${ORANGE} Nomad
-		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}09${RED}]${ORANGE} Gcloud Cli    	${RED}[${WHITE}16${RED}]${ORANGE} Ngrok
-		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}10${RED}]${ORANGE} Azure Cli    
-		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli
+		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}09${RED}]${ORANGE} Gcloud Cli      ${RED}[${WHITE}16${RED}]${ORANGE} Ngrok
+		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}10${RED}]${ORANGE} Azure Cli       ${RED}[${WHITE}17${RED}]${ORANGE} Helm
+		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli    ${RED}[${WHITE}18${RED}]${ORANGE} Terragrunt
 		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}12${RED}]${ORANGE} Github Cli 	
 		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}13${RED}]${ORANGE} Packer
 		${RED}[${WHITE}07${RED}]${ORANGE} Kind	   ${RED}[${WHITE}14${RED}]${ORANGE} Waypoint
@@ -119,6 +119,10 @@ menu() {
 			nomad --version && echo ${RED} "Nomad already installed" && sleep 2 && menu || nomadin
 		elif [[ "$REPLY" == 16 || "$REPLY" == 016 ]]; then
 			ngrok --version && echo ${RED} "Ngrok already installed" && sleep 2 && menu || ngrokin
+		elif [[ "$REPLY" == 17 || "$REPLY" == 017 ]]; then
+			helm version && echo ${RED} "Helm already installed" && sleep 2 && menu || helmin
+		elif [[ "$REPLY" == 18 || "$REPLY" == 018 ]]; then
+			terragrunt -v && echo ${RED} "Terragrunt already installed" && sleep 2 && menu || terragruntin
 		elif [[ "$REPLY" == 00 || "$REPLY" == 000 ]]; then
 			echo -ne "${RESETBG}\n${WHITEBG}${BLACK}[${BLACK}!${BLACK}]${BLACK} Thanks for using this tool have a good day and spread the love 💖 ${RESETBG}\n" && exit
 		else
@@ -468,6 +472,35 @@ function ngrokin {
 	menu
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported operating system" && sleep 2 && menu;
+	fi
+}
+
+function helmin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing helm.........."
+	sleep 1
+	sudo curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+	sudo apt-get install apt-transport-https -y
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+	sudo apt-get update -y && sudo apt-get install helm -y && echo ${RED} "Helm installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
+}
+
+function terragruntin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing terragrunt.........."
+	sleep 1
+	sudo apt-get install wget -y
+	wget -o terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.6/terragrunt_linux_arm64
+	sudo chmod u+x terragrunt && sudo mv terragrunt /usr/local/bin/terragrunt && echo ${RED} "Terragrunt installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
 	fi
 }
 
