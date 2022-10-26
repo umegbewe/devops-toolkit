@@ -123,6 +123,8 @@ menu() {
 			helm version && echo ${RED} "Helm already installed" && sleep 2 && menu || helmin
 		elif [[ "$REPLY" == 18 || "$REPLY" == 018 ]]; then
 			terragrunt -v && echo ${RED} "Terragrunt already installed" && sleep 2 && menu || terragruntin
+		elif [[ "$REPLY" == 18 || "$REPLY" == 018 ]]; then
+			kubeadm version && echo ${RED} "Kubeadm already installed" && sleep 2 && menu || kubeadmin
 		elif [[ "$REPLY" == 00 || "$REPLY" == 000 ]]; then
 			exit
 		else
@@ -252,6 +254,21 @@ function terraformin {
 	
 }
 
+
+function kubeadmin {
+	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
+	echo -e "\n${GREEN}[${WHITE}+${GREENS}]${GREENS} Ubuntu/Debian based detected installing Kubectl.........."
+	sleep 1
+	sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl && \
+	sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg && \
+	echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list && \
+	sudo apt-get update && sudo apt-get install -y kubeadm && echo ${RED} "Kubeadm installed!!!"
+	sleep 3
+	menu
+	else
+	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
+	fi
+}
 
 function kubectlin {
 	if [[ `cat /etc/os-release | grep 'Ubuntu\|ID_LIKE=ubuntu\|Debian\|ID_LIKE=debian'` ]]; then
