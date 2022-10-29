@@ -64,7 +64,7 @@ echo "
 		${ORANGE}                       |_|                              
 		${ORANGE}                ${RED}Version : 1.0
 
-		${GREEN}[${WHITE}-${GREENS}]${GREENS} Tool Created by ${RED}mosthated ${GREENS}(umegbewe nwebedu)${WHITE}
+		${GREEN}[${WHITE}-${GREENS}]${GREENS} Tool Created by great ${WHITE}
 "
 }
 
@@ -78,11 +78,11 @@ menu() {
 		${RED}[${WHITE}02${RED}]${ORANGE} Vagrant       ${RED}[${WHITE}09${RED}]${ORANGE} Gcloud Cli      ${RED}[${WHITE}16${RED}]${ORANGE} Ngrok
 		${RED}[${WHITE}03${RED}]${ORANGE} Ansible       ${RED}[${WHITE}10${RED}]${ORANGE} Azure Cli       ${RED}[${WHITE}17${RED}]${ORANGE} Helm
 		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli    ${RED}[${WHITE}18${RED}]${ORANGE} Terragrunt
-		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}12${RED}]${ORANGE} Github Cli 	
-		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}13${RED}]${ORANGE} Packer
+		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}12${RED}]${ORANGE} Github Cli 	${RED}[${WHITE}19${RED}]${ORANGE} Kubeadm
+		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}13${RED}]${ORANGE} Packer		${RED}[${WHITE}20${RED}]${ORANGE} Kubelet
 		${RED}[${WHITE}07${RED}]${ORANGE} Kind	   ${RED}[${WHITE}14${RED}]${ORANGE} Waypoint
 		
-		${RED}[${WHITE}99${RED}]${ORANGE} About         ${RED}[${WHITE}00${RED}]${ORANGE} Exit
+		${RED}[${WHITE}q${RED}]${ORANGE} Exit
 
 		EOF
 		
@@ -123,10 +123,12 @@ menu() {
 			helm version && echo ${RED} "Helm already installed" && sleep 2 && menu || helmin
 		elif [[ "$REPLY" == 18 || "$REPLY" == 018 ]]; then
 			terragrunt -v && echo ${RED} "Terragrunt already installed" && sleep 2 && menu || terragruntin
-		elif [[ "$REPLY" == 18 || "$REPLY" == 018 ]]; then
+		elif [[ "$REPLY" == 19 || "$REPLY" == 019 ]]; then
 			kubeadm version && echo ${RED} "Kubeadm already installed" && sleep 2 && menu || kubeadmin
-		elif [[ "$REPLY" == 00 || "$REPLY" == 000 ]]; then
-			exit
+		elif [[ "$REPLY" == 20 || "$REPLY" == 020 ]]; then
+			kubeadm version && echo ${RED} "Kubelet already installed" && sleep 2 && menu || kubeletin
+		elif [[ "$REPLY" == q ]]; then
+			clear && exit
 		else
 		echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
 				{ sleep 1; menu; }
