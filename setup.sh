@@ -80,7 +80,7 @@ menu() {
 		${RED}[${WHITE}04${RED}]${ORANGE} Terraform	   ${RED}[${WHITE}11${RED}]${ORANGE} Circleci Cli    ${RED}[${WHITE}18${RED}]${ORANGE} Terragrunt
 		${RED}[${WHITE}05${RED}]${ORANGE} Kubectl	   ${RED}[${WHITE}12${RED}]${ORANGE} Github Cli 	${RED}[${WHITE}19${RED}]${ORANGE} Kubeadm
 		${RED}[${WHITE}06${RED}]${ORANGE} Minikube      ${RED}[${WHITE}13${RED}]${ORANGE} Packer		${RED}[${WHITE}20${RED}]${ORANGE} Kubelet
-		${RED}[${WHITE}07${RED}]${ORANGE} Kind	   ${RED}[${WHITE}14${RED}]${ORANGE} Waypoint
+		${RED}[${WHITE}07${RED}]${ORANGE} Kind	   ${RED}[${WHITE}14${RED}]${ORANGE} Waypoint	${RED}[${WHITE}21${RED}]${ORANGE} Krew
 		
 		${RED}[${WHITE}q${RED}]${ORANGE} Exit
 
@@ -126,7 +126,9 @@ menu() {
 		elif [[ "$REPLY" == 19 || "$REPLY" == 019 ]]; then
 			kubeadm version && echo ${RED} "Kubeadm already installed" && sleep 2 && menu || kubeadmin
 		elif [[ "$REPLY" == 20 || "$REPLY" == 020 ]]; then
-			kubeadm version && echo ${RED} "Kubelet already installed" && sleep 2 && menu || kubeletin
+			kubelet version && echo ${RED} "Kubelet already installed" && sleep 2 && menu || kubeletin
+		elif [[ "$REPLY" == 21 || "$REPLY" == 021 ]]; then
+			kubectl krew version | sed '2q;d' && echo ${RED} "Krew already installed" && sleep 2 && menu || krewin
 		elif [[ "$REPLY" == q ]]; then
 			clear && exit
 		else
@@ -303,6 +305,26 @@ function kubectlin {
 	else
 	echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager" && sleep 2 && menu;
 	fi
+}
+
+function krewin {
+	cd "$(mktemp -d)" &&
+      OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+      ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+      KREW="krew-${OS}_${ARCH}" &&
+      curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+      tar zxvf "${KREW}.tar.gz" &&
+      ./"${KREW}" install krew
+
+      export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+      if [ -f "~/.bashrc" ]; then
+        echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.bashrc
+      fi
+
+      if [ -f "~/.zshrc" ]; then
+        echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.zshrc
+      fi
 }
 
 function minikubein {
